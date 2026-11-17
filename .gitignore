@@ -1,0 +1,8 @@
+build/
+build-*/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+.DS_Store
+# the web app is copied in from ../udambu by sync-web.sh
+web/
