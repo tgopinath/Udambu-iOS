@@ -35,6 +35,10 @@ struct AppWebView: UIViewRepresentable {
         config.userContentController.addUserScript(WKUserScript(source: Self.shellScript(), injectionTime: .atDocumentStart, forMainFrameOnly: true))
         config.userContentController.add(context.coordinator, name: "haptic")
         config.userContentController.add(context.coordinator, name: "ar")       // "View in your room" → AR Quick Look
+        // The Lab (lab/index.html) is an ES-module app that fetches its 3D models and decoder with fetch();
+        // WebKit treats every file:// page as its own origin, so allow the bundled files to load each other.
+        config.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        config.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
 
         let web = WKWebView(frame: .zero, configuration: config)
         web.navigationDelegate = context.coordinator
